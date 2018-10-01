@@ -1,13 +1,16 @@
 const express = require('express')
 const app = express()
 
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/whymystartupideawontwork', { useMongoClient: true });
+
 var exphbs = require('express-handlebars');
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
-// app.get('/', (req, res) => {
-//     res.render('home', { msg: 'Hello World!' });
-// })
+const Idea = mongoose.model('Idea', {
+    title: String
+  });
 
 // OUR MOCK ARRAY OF PROJECTS
 let ideas = [
@@ -17,10 +20,14 @@ let ideas = [
   
   // INDEX
   app.get('/', (req, res) => {
-    res.render('ideas-index', { ideas: ideas });
+        Idea.find().then(ideas => {
+            res.render('ideas-index', { ideas: ideas });
+        })
+        .catch(err => {
+            console.log(err);
+        })
   })
 
 app.listen(3000, () => {
   console.log('App listening on port 3000!')
 })
-
