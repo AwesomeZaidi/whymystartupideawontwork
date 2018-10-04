@@ -1,6 +1,6 @@
-<!-- ideas-index -->
+<!-- views/ideas-index.handlebars -->
 <h1>Startup Ideas</h1>
+<a href="/ideas/new">New Idea?</a>
 {{#each ideas}}
-  <h2>{{this.pitch}}</h2>
-  {{!-- <small>{{this.movieTitle}}</small> --}}
+  <h2><a href="/ideas/{{this._id}}">{{this.pitch}}</a></h2>
 {{/each}}
