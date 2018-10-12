@@ -1,7 +1,7 @@
 const Idea = require('../models/idea');
-
+const Comment = require('../models/comment');
 // INDEX
-module.exports = function(app, Idea) {
+module.exports = function(app) {
     app.get('/', (req, res) => {
         Idea.find().then(ideas => {
             res.render('ideas-index', { ideas: ideas });
@@ -10,27 +10,57 @@ module.exports = function(app, Idea) {
             console.log(err);
         })
       })
-    
     // CREATE
     app.post('/ideas', (req, res) => {
       Idea.create(req.body).then((idea) => {
-        console.log(idea)
         res.redirect(`/ideas/${idea._id}`) // Redirect to idea/:id
       }).catch((err) => {
         console.log(err.message)
       })
     })
-    
-      app.get('/ideas/new', (req, res) => {
-        res.render('ideas-new', {});
-      })
+    // NEW
+    app.get('/ideas/new', (req, res) => {
+      res.render('ideas-new', {
+        
+      });
+    })
     
     // SHOW
+    // app.get('/ideas/:id', (req, res) => {
+    //   Idea.findById(req.params.id).then(idea => {
+    //     console.log('inside show function ----- > ' + req.params);
+    //     // fetch its comments
+    //     Comment.find({ reviewId: req.params.id }).then(comments => {
+    //       res.render('ideas-show', { idea: idea, comments: comments })
+    //     }).catch((err) => {
+    //       console.log(err.message);
+    //     })
+    //   })
+    // })
+    // at ideas/:id route let's GET request (fetch)
+    //  an idea " > 
     app.get('/ideas/:id', (req, res) => {
-      Idea.findById(req.params.id).then((idea) => {
-        res.render('ideas-show', { idea: idea })
-      }).catch((err) => {
-        console.log(err.message);
+      console.log("Helllo world 1");
+      
+      Idea.findById(req.params.id).populate("comments").then(idea => {
+        res.render('ideas-show', {idea: idea});
+        // console.log(comments);
       })
     })
-}
+  }
+
+
+//       Idea.findById(req.params.id).then(idea => {
+//         // console.log(idea);
+//         Comment.find({}).then(comments => {
+//           // console.log(idea._id);
+//           console.log('this is a commenttt ----> ' + comments)
+//           res.render('ideas-show', {idea: idea, comments: comments});
+//           // console.log(comments);
+          
+//         }).catch(err => {
+//           console.log(err.message)
+//         })
+//       })
+//     })
+ 

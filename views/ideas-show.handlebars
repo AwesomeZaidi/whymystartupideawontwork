@@ -1,2 +1,11 @@
 <a href="/">Back to Home</a>
 <h1>{{idea.pitch}}</h1>
+
+    {{> comment-form}}
+
+    <hr>
+
+    <!-- Show Comments -->
+    {{#each idea.comments}}
+      {{> comment}}
+    {{/each}}
