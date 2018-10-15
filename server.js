@@ -7,7 +7,7 @@ const commentController = require('./controllers/comments');
 const ideaController = require('./controllers/ideas')
 const Comment = require('./models/comment')
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/whymystartupideawontwork');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/whymystartupideawontwork', {useNewUrlParser: true});
 
 var exphbs = require('express-handlebars');
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
@@ -23,6 +23,6 @@ ideaController(app);
 // const comments = require('./controllers/comments')(app, Comment);
 // ideas(app);
 // comments(app);
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log('App listening on port 3000!')
 })
