@@ -6,9 +6,9 @@ const Schema = mongoose.Schema;
 
 
 const Idea = mongoose.model('Idea', {
-    pitch: {type: String, required: true},
-    comments: [{type: Schema.Types.ObjectId, ref: "Comment"}]
-  });
+    pitch: { type: String, required: true },
+    comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }]
+});
 
 
 module.exports = Idea;

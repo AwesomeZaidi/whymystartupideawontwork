@@ -7,9 +7,16 @@ const commentController = require('./controllers/comments');
 const ideaController = require('./controllers/ideas')
 const Comment = require('./models/comment')
 const mongoose = require('mongoose');
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/whymystartupideawontwork', {useNewUrlParser: true});
-
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/whymystartupideawontwork', { useNewUrlParser: true });
 var exphbs = require('express-handlebars');
+
+var chai = require('chai')
+var chaiHttp = require('chai-http');
+var should = chai.should();
+
+chai.use(chaiHttp);
+
+
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
