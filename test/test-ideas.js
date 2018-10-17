@@ -5,9 +5,14 @@ const chaiHttp = require('chai-http');
 const server = require('../server');
 const should = chai.should();
 const Idea = require('../models/idea');
+const Comment = require('../models/comment');
 
 const sampleIdea = {
     "pitch": "IoT Toaster"
+}
+const sampleComment = {
+    "name": "asim",
+    "content": "this is a bad idea"
 }
 
 chai.use(chaiHttp);
@@ -45,7 +50,7 @@ describe('Ideas Landing Page', function() {
             res.should.have.status(300);
             res.should.be.html
             done();
-        }).catch(done());;
+        }).catch(done());
         });
 
     // TEST SHOW SINGLE idea 
@@ -60,7 +65,43 @@ describe('Ideas Landing Page', function() {
                     done();
                 });
         });
-    });
+    // const comment = new Comment(sampleComment);
+    // it('should post a comment on /ideas<id>/comments POST', (done) => {
+    //     comment.save((err, data) => {
+    //         if (err) {
+    //             done(err);
+    //         }
+    //         chai.request('localhost:3000')
+    //         .post(`/ideas/${data._id}/comments`)
+    //         .end((err, res) => {
+    //             res.should.have.status(200);
+    //             res.should.be.html
+    //             done();
+    //         });
+    //     });
+    // });
+
+    // it('New comment should be in database...', (done) => {
+    //     Comment.findOne(comment).then((foundComment) => {
+    //         chai.request('localhost:3000')
+    //         done();
+    //     }).catch((err) => {
+    //         done(err);
+    //     })
+    // });
+});
+            // comment.save((err, data) => {
+            //     chai.request('localhost:3000')
+            //     .post(`/ideas/${data._id}/comments`)
+            //     .end((err, res) => {
+            //         res.should.have.status(200);
+            //         res.should.be.html
+            //         done();
+            //     });
+            // });
+    
+
+
 
   module.exports = server;
 

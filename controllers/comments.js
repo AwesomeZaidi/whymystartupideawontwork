@@ -7,14 +7,15 @@ module.exports = function(app) {
     app.post('/ideas/:ideaId/comments', (req, res) => {
         const comment = new Comment(req.body);
         comment.save().then(comment => {
-            console.log(comment);
+            // console.log(comment);
             
             console.log('this is a comment -----> ' + comment )
+            console.log('Idea id ----> ', req.params.ideaId)
             return Idea.findById(req.params.ideaId);
             // res.redirect(`/`);
 
         }).then(idea => {
-            // console.log(idea);
+            console.log("Idea ----> ",idea);
             
             idea.comments.unshift(comment);
             return idea.save();
